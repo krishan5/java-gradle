@@ -13,6 +13,9 @@ import javax.mail.internet.MimeMessage;
  * Helpful URL :
  * https://gist.github.com/ipingu/7681247
  * https://support.google.com/mail/?p=WantAuthError
+ * 
+ * If nothing works :
+ * Try by enabling "Less secure app access" in your Gmail account settings.
  */
 public class SimpleEmailService {
 
