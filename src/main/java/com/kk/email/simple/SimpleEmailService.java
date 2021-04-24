@@ -1,13 +1,17 @@
 package com.kk.email.simple;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * Helpful URL :
@@ -20,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 public class SimpleEmailService {
 
 	public static void main(String[] args) {
-		sendMail("your@email.com", "em4il_p4ssw0rd", "client@email.com", "Hello, I am message :P", "Hello, I am subject");
+		sendMail("your@gmail.com", "password", "client@gmail.com", "Hello, \n I am message.", "Hello, I am subject");
 	}
 	
 	private static void sendMail(String from, String password, String to, String msg, String subject) {
@@ -41,7 +45,16 @@ public class SimpleEmailService {
 			message.setFrom(new InternetAddress(from));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject(subject);
-			message.setText(msg);
+			//message.setText(msg); //In case you are using MimeBodyPart then add message in that object.
+			
+			MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+			attachmentBodyPart.attachFile("C:\\Users\\KrishanKumar\\Downloads\\github-mark.png");
+			attachmentBodyPart.setContent(msg, "text/html");
+			
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(attachmentBodyPart);
+			
+			message.setContent(multipart);
 			
 			//Send mail
 			System.out.println("Sending mail in progress...");
@@ -57,6 +70,8 @@ public class SimpleEmailService {
 			System.out.println("Mail sent !!!");
 			
  		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
