@@ -34,7 +34,7 @@ public class SimpleEmailService {
 		 * While trying anyone of them, don't forget to comment another one otherwise you will face compile time error.
 		 */
 		Properties props = viaSSL();
-		//Properties props = viaTSL();
+		//Properties props = viaTLS();
 		
 		//Get session
 		Session session = Session.getDefaultInstance(props);
@@ -89,7 +89,7 @@ public class SimpleEmailService {
 		return props;
 	}
 	
-	private static Properties viaTSL() {
+	private static Properties viaTLS() {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
